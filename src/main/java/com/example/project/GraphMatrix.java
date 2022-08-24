@@ -78,8 +78,38 @@ public class GraphMatrix implements Graph {
     }
 
     public int countConnectedComponents() {
-
-        return -1;
+    	//inicio un contador para verificar la cantidad de componentes
+    	int cont = 0;
+    	
+    	//Creo un nuevo array para almacenar la misma cantidad de vertices
+    	ArrayList<Integer> arr = new ArrayList<Integer>();
+    	
+    	//En "arr" almaceno los vertices desde un "0" hasta un "numVertices-1"
+    	for(int i = 0; i<this.numVertices;i++) {
+    		arr.add(i);
+    	}
+    	
+    	//Este "do while" itera hasta que "arr" este vacio,
+    	//y esto se da cuando se termina de remover todos los vertices 
+    	//de los subgrafos que ya se visitaron
+    	do {
+    		
+    		//En "componenteX" almaceno el subgrafo encontrado ó 
+    		//el grafo de un solo componente según sea el caso
+	    	ArrayList<Integer> componenteX = depthFirstSearch(arr.get(0));
+	    	
+	    	//Conforme voy encontrando subgrafos, los remuevo para quedarme solo
+	    	//Con los vertices que aún no se han visitado
+	    	for(int j = 0; j<componenteX.size(); j++) 
+	    		arr.remove(0);
+	    	cont++;
+	    	
+	    }
+    	//Termina cuando el grafo inicial queda vacio
+    	//Lo cual indica que ya no hay mas vertices por visitar
+    	while(arr.size()!=0);
+    	
+    	return cont;
     }
 
     public static void main(String args[]) {
