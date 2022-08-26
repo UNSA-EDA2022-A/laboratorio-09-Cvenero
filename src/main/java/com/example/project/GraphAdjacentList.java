@@ -90,28 +90,31 @@ public class GraphAdjacentList implements Graph {
     }
 
     public boolean removeVertex(int vertex){
-        Vertex verticeTemp = null;
-		
+	    Vertex verticeTemp = null;
+		int indice = 0;
+		// Recorremos los vertices del grafo
 		for (int i = 0; i < numVertices; i++) {
-			
-			if (vertex == vertices.get(i).data) {
-				//Almacenamos la posicion encontrada en el vertice temporal
-				verticeTemp = vertices.get(i);
-				
-			}
-			//En caso de no encontrar el vertice retornamos "false";
-			if(verticeTemp == null) {
-				return false;
-			}
+			// Encontramos la posicion de "vertex"
+			verticeTemp = vertices.get(i);
+			// Guardamos el indice encontrado
+			if (vertex == this.vertices.get(i).data)
+				indice = i;
+
 		}
-		//Removemos el vertice
-		vertices.remove(verticeTemp);
-		//Removemos los adyacentes
-		for(int i = 0; i< vertices.size(); i++) {
-			vertices.get(i).removeAdjacentVertex(vertex);
+	    	//En caso no haya el vertice devuelve "false"
+		if (verticeTemp == null)
+			return false;
+		// Removemos los adyacentes
+		for (int j = 0; j < verticeTemp.adjacentVertices.size(); j++) {
+			if (vertex == verticeTemp.adjacentVertices.get(j).data)
+				verticeTemp.removeAdjacentVertex(vertex);
 		}
-		//actualizamos numero de vertices
+
+		// Removemos el vertice
+		vertices.remove(indice);
+
 		numVertices--;
+
 		return true;
     }
 
