@@ -90,7 +90,29 @@ public class GraphAdjacentList implements Graph {
     }
 
     public boolean removeVertex(int vertex){
-        return false;
+        Vertex verticeTemp = null;
+		
+		for (int i = 0; i < numVertices; i++) {
+			
+			if (vertex == vertices.get(i).data) {
+				//Almacenamos la posicion encontrada en el vertice temporal
+				verticeTemp = vertices.get(i);
+				
+			}
+			//En caso de no encontrar el vertice retornamos "false";
+			if(verticeTemp == null) {
+				return false;
+			}
+		}
+		//Removemos el vertice
+		vertices.remove(verticeTemp);
+		//Removemos los adyacentes
+		for(int i = 0; i< vertices.size(); i++) {
+			vertices.get(i).removeAdjacentVertex(vertex);
+		}
+		//actualizamos numero de vertices
+		numVertices--;
+		return true;
     }
 
     public static void main(String args[]) {
