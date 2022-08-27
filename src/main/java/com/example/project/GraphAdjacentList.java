@@ -117,7 +117,19 @@ public class GraphAdjacentList implements Graph {
 
 		return true;
     }
+    public ArrayList<Vertex> depthFirstSearch(Vertex n) {
+        return this.depthFirstSearch(n, new ArrayList<Vertex>());
+    }
 
+    public ArrayList<Vertex> depthFirstSearch(Vertex n, ArrayList<Vertex> visited) {
+        visited.add(n);
+        for (Vertex vertex : n.adjacentVertices) { 
+            if (!vertices.contains(vertex)) {
+                depthFirstSearch(n, visited); 
+            }
+        }
+        return visited;
+    }
     public static void main(String args[]) {
         GraphAdjacentList graph = new GraphAdjacentList();
         graph.addEdge(1, 2);
